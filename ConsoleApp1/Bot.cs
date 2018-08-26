@@ -93,7 +93,7 @@ namespace NObject.NBot
             else
             {
                 reply = "Developed by xPathfinder with Csharp Language\n";
-                reply += "현재 메뉴 추천봇은 다음과 같은 명령어를 가지고 있습니다.\n";
+                reply += "현재 다음과 같은 명령어를 가지고 있습니다.\n";
 
                 foreach (var item in flyweights)
                 {
@@ -118,10 +118,6 @@ namespace NObject.NBot
 
         private Task Log(LogMessage e)
         {
-            if (null != e.Exception && e.Exception.GetType() == typeof(ArgumentOutOfRangeException))
-            {
-                return Task.CompletedTask;
-            }
             Console.WriteLine(e.Message);
             return Task.CompletedTask;
         }
@@ -203,6 +199,7 @@ namespace NObject.NBot
 
             // 테스트.
             GenerateSimpleCommand("효도 좀 하자", "선우야");
+            GenerateSimpleCommand("현재 맘마봇은 온라인입니다.", "!온라인");
 
             this.discordSocketClient.Log += Log;
 
@@ -246,6 +243,12 @@ namespace NObject.NBot
                     maxCount++;
                 }
             }
+
+            if (maxCount == 0)
+            {
+                return;
+            }
+
             DateTime dateTime = DateTime.Now;
 
             Random rnd = new Random(dateTime.Hour + dateTime.Minute + dateTime.Second + dateTime.Year);
