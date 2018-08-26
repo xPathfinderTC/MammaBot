@@ -6,50 +6,50 @@ using System.Collections.Generic;
 
 namespace NTable
 {
-    public class Food
+    public class Food : Flyweight
     {
         public static Food Instance { get { return instance; } }
-
         private static Food instance = new Food();
+        public List<string> Container = new List<string>();
 
-        public static List<string> Flyweight = new List<string>();
-
-        public static string Keyword = "뭐먹지";
-
-        public void AddObject(string key)
+        public override string GetFlyweightType()
         {
-            Flyweight.Add(key);
+            return "!뭐먹지";
         }
 
-        public string GetObject(string key)
+        public override string GetFilePath()
         {
-            if (!Flyweight.Contains(key)) return null;
-            else return key;
+            return Directory.GetCurrentDirectory() + "\\Table\\Food.csv";
         }
 
-        public int GetSize()
+        public override int GetSize()
         {
             int result = 0;
-            foreach ( var item in Flyweight )
+            foreach ( var item in Container )
             {
                 result += System.Text.ASCIIEncoding.Unicode.GetByteCount(item);
             }
             return result;
         }
 
-        public string GetRandomObject()
+        public override int GetCount()
+        {
+            return Container.Count;
+        }
+
+        public override string GetItem()
         {
             string reply = string.Empty;
             
             DateTime dateTime = DateTime.Now;
 
             Random rnd = new Random(dateTime.Hour + dateTime.Minute + dateTime.Second + dateTime.Year);
-            int time = rnd.Next(1, Flyweight.Count);
+            int time = rnd.Next(1, Container.Count);
 
             int index = 1;
-            foreach (var item in Flyweight)
+            foreach (var item in Container)
             {
-                if (index == time || 1 == Flyweight.Count)
+                if (index == time || 1 == Container.Count)
                 {
                     reply = item;
                     break;
@@ -60,11 +60,11 @@ namespace NTable
             return reply;
         }
 
-        public bool Execute(string fileName, bool makeClear = false)
+        public override bool Execute(string fileName, bool makeClear = false)
         {
             if (false == makeClear)
             {
-                Food.Flyweight.Clear();
+                Container.Clear();
             }
 
             try
@@ -73,7 +73,7 @@ namespace NTable
 
                 foreach (string line in lines)
                 {
-                    AddObject(line);
+                    Container.Add(line);
                 }
 
                 Console.WriteLine(fileName + ": 테이블 로드 완료.");

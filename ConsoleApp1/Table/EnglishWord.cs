@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace NTable
 {
-    public class Mamma : Flyweight
+    public class EnglishWord : Flyweight
     {
-        public static Mamma Instance { get { return instance; } }
-        private static Mamma instance = new Mamma();
+        public static EnglishWord Instance { get { return instance; } }
+        private static EnglishWord instance = new EnglishWord();
         public List<string> Container = new List<string>();
 
         public override string GetFlyweightType()
         {
-            return "맘마?";
+            return "!영어단어";
         }
 
         public override string GetFilePath()
         {
-            return Directory.GetCurrentDirectory() + "\\Table\\Mamma.csv";
+            return Directory.GetCurrentDirectory() + "\\Table\\EnglishWord.csv";
         }
 
         public override int GetSize()

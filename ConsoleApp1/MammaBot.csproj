@@ -128,6 +128,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bot.cs" />
+    <Compile Include="Table\EnglishWord.cs" />
+    <Compile Include="Table\Flyweight.cs" />
     <Compile Include="Table\Food.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,9 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Table\Food.csv" />
     <None Include="packages.config" />
-    <None Include="Table\Mamma.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
